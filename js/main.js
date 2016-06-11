@@ -57,6 +57,15 @@ app.controller('BetController', function($scope) {
 		});
   	};
 
+  	$scope.reset = function()
+  	{
+  		$scope.cote = [1,1,1];
+		$scope.mise = [1,1,1];
+		$scope.gain = [1,1,1];
+		$scope.omise = [1,1,1];
+		$scope.coteRetenu = 0;
+  	}
+
     $scope.$watch('cote', function() {
         $scope.updateCote();
     },true);
