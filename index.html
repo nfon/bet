@@ -1,0 +1,94 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Bet</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/angular.min.js"></script>
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+    <body>
+    
+    <div class="container" ng-app="bet" ng-controller="BetController">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          Win for Team A
+        </div>
+        <div class="col-md-4">
+          Draw
+        </div>
+        <div class="col-md-4">
+          Win for Team B
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <input type="number" step="0.01" ng-model="cote[0]">
+        </div>
+        <div class="col-md-4">
+          <input type="number" step="0.01" ng-model="cote[1]">
+        </div>
+        <div class="col-md-4">
+          <input type="number" step="0.01" ng-model="cote[2]">
+        </div>
+      </div>
+      <div class="row">
+        Indice (negative = good bet) : {{sumMise-minGain}}
+        <h4>
+          {{(sumMise-minGain<0)?"Good bet":"Bad Bet"}}
+        </h4>
+      </div>
+      <div ng-if="sumMise-minGain<0">
+        Money:
+        <div class="row" >
+            <div class="col-md-3">
+              <input type="number" step="0.01" ng-model="mise[0]">
+            </div>
+            <div class="col-md-3">
+              <input type="number" step="0.01" ng-model="mise[1]">
+            </div>
+            <div class="col-md-3">
+              <input type="number" step="0.01" ng-model="mise[2]">
+            </div>
+            <div class="col-md-3">
+              Sum: {{sumMise}}€
+            </div>
+        </div>
+        Gain
+        <div class="row">
+          <div class="col-md-3">
+            <input type="number" step="0.01" ng-model="gain[0]" disabled="disabled">
+          </div>
+          <div class="col-md-3">
+            <input type="number" step="0.01" ng-model="gain[1]" disabled="disabled">
+          </div>
+          <div class="col-md-3">
+            <input type="number" step="0.01" ng-model="gain[2]" disabled="disabled">
+          </div>
+          <div class="col-md-3">
+              Sum: {{gain[0]+gain[1]+gain[2]}}€
+            </div>
+        </div>
+      </div>
+    </div> <!-- /container -->        
+
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+    <script src="js/vendor/bootstrap.min.js"></script>
+
+    <script src="js/main.js"></script>
+    </body>
+</html>
