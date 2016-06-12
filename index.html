@@ -53,7 +53,7 @@
       </div>
       <div class="row" ng-cloak>
         <h4>
-          {{(sumMise-gain[0]<0)?"Sure bet!":"Bad Bet"}}
+          {{(sumMise < gain[0])?"Sure bet!":"Bad Bet"}}
         </h4>
       </div>
       <div ng-if="sumMise<gain[0]" ng-cloak>
@@ -69,7 +69,7 @@
               <input type="number" step="0.01" ng-model="mise[2]">
             </div>
             <div class="col-md-3">
-              Sum: {{sumMise}}€
+              Sum: {{sumMise | number}}€
             </div>
         </div>
         Gain:
@@ -84,14 +84,14 @@
             <input type="number" step="0.01" ng-model="gain[2]" disabled="disabled">
           </div>
           <div class="col-md-3">
-            Gain: {{gain[0]}}€
+            Gain: {{gain[0] | number}}€
           </div>
         </div>
         <div>
             <h2>Summary:</h2><br/>
-            Bet: {{sumMise}}€<br/> 
-            Gain: {{gain[0]}}€<br/>
-            <b>Total: {{gain[0]-sumMise}}€</b>
+            Bet: {{sumMise | number}}€<br/> 
+            Gain: {{gain[0] | number}}€<br/>
+            <b>Total: {{gain[0]-sumMise | number}}€</b>
         </div>
       </div>
       <button ng-click='reset()'>Reset</button>
