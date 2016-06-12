@@ -52,8 +52,11 @@
         </div>
       </div>
       <div class="row" ng-cloak>
-        <h4>
-          {{(sumMise < gain[0])?"Sure bet!":"Bad Bet"}}
+        <h4 ng-if="sumMise < gain[0]">
+          Sure bet (rate: {{(gain[0]/sumMise)*100 | number}}%)!
+        </h4>
+        <h4 ng-if="sumMise >= gain[0]">
+          Bad Bet
         </h4>
       </div>
       <div ng-if="sumMise<gain[0]" ng-cloak>
