@@ -5,13 +5,13 @@ app.controller('BetController', function($scope) {
 	$scope.gain = [1,1,1];
 	$scope.omise = [1,1,1];
 	$scope.coteRetenu = 0;
+	$scope.money = null;
 
 	$scope.updateCote = function(){
 	    $scope.mise=[1,1,1];
 	    $scope.gain=[1,1,1];
 
 	    $scope.sumMise = 0;
-	    $scope.minGain = 99999999;
 
 	    $scope.coteRetenu = 0;
 	    if ($scope.cote[0] <= $scope.cote[1] && $scope.cote[0] <= $scope.cote[2])
@@ -29,11 +29,13 @@ app.controller('BetController', function($scope) {
 
 			$scope.gain[i] =$scope.mise[i]*$scope.cote[i];
 			$scope.omise[i]=$scope.mise[i];
-
-			if ($scope.minGain>$scope.gain[i])
-				$scope.minGain=$scope.gain[i]
 			$scope.sumMise += $scope.mise[i];
 		});
+
+		if ($scope.sumMise<$scope.gain[0])
+			window.setTimeout(function(){
+				$("#money").focus();
+			},150);
   	};
 
 	$scope.updateMise = function(j){
@@ -49,11 +51,15 @@ app.controller('BetController', function($scope) {
   	};
 
 	$scope.updateGain = function(){
-		$scope.minGain = 99999999;
 		$.each($scope.gain, function(i, v) {
 			$scope.gain[i]=$scope.mise[i]*$scope.cote[i];
-			if ($scope.minGain>$scope.gain[i])
-				$scope.minGain=$scope.gain[i]
+		});
+  	};
+
+	$scope.updateGainWanted = function(){
+		var coef = ($scope.gain[0]-$scope.sumMise)/$scope.money;
+		$.each($scope.mise, function(i, v) {
+			$scope.mise[i]=$scope.mise[i]/coef;
 		});
   	};
 
@@ -64,6 +70,7 @@ app.controller('BetController', function($scope) {
 		$scope.gain = [1,1,1];
 		$scope.omise = [1,1,1];
 		$scope.coteRetenu = 0;
+		$scope.money = null;
   	}
 
     $scope.$watch('cote', function() {
@@ -81,4 +88,9 @@ app.controller('BetController', function($scope) {
     $scope.$watch('mise[2]', function() {
         $scope.updateMise(2);
     },true);
+
+    $scope.$watch('money', function() {
+        $scope.updateGainWanted();
+    },true);
+
 });

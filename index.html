@@ -24,35 +24,39 @@
     <div class="container" ng-app="bet" ng-controller="BetController" ng-init="reset()">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           Win for Team A
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           Draw
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           Win for Team B
+        </div>
+        <div class="col-md-3" ng-show="sumMise<gain[0]">
+          Money wanted
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
-          <input type="number" step="0.01" ng-model="cote[0]">
+        <div class="col-md-3">
+          <input type="number" step="0.01" ng-model="cote[0]" autofocus>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <input type="number" step="0.01" ng-model="cote[1]">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <input type="number" step="0.01" ng-model="cote[2]">
+        </div>
+        <div class="col-md-3">
+          <input id="money" type="number" step="0.01" ng-model="money" ng-show="sumMise<gain[0]">
         </div>
       </div>
       <div class="row" ng-cloak>
-        Indice (negative = good bet) : {{sumMise-minGain}}
         <h4>
-          {{(sumMise-minGain<0)?"Good bet":"Bad Bet"}}
-          <button ng-click='reset()' ng-if="sumMise-minGain">Reset</button>
+          {{(sumMise-gain[0]<0)?"Sure bet!":"Bad Bet"}}
         </h4>
       </div>
-      <div ng-if="sumMise-minGain<0" ng-cloak>
+      <div ng-if="sumMise<gain[0]" ng-cloak>
         Money:
         <div class="row" >
             <div class="col-md-3">
@@ -80,11 +84,17 @@
             <input type="number" step="0.01" ng-model="gain[2]" disabled="disabled">
           </div>
           <div class="col-md-3">
-              Gain: {{minGain}}€
-            </div>
+            Gain: {{gain[0]}}€
+          </div>
         </div>
-        <div>Total minimum: {{minGain-sumMise}}€</div>
+        <div>
+            <h2>Summary:</h2><br/>
+            Bet: {{sumMise}}€<br/> 
+            Gain: {{gain[0]}}€<br/>
+            <b>Total: {{gain[0]-sumMise}}€</b>
+        </div>
       </div>
+      <button ng-click='reset()'>Reset</button>
     </div> <!-- /container -->        
 
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
